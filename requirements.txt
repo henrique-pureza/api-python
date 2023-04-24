@@ -1,0 +1,5 @@
+flask # Cria as rotas
+gunicorn # Servidor de produção
+flask-cors # CORS
+psycopg2 # ElephantSQL / Postgres
+python-dotenv # .env
