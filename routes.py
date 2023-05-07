@@ -12,7 +12,15 @@ materiaModel = Materia()
 # GET => retorna [{"materia": "Matéria", "tipo": "Tipo"}, {...}, ...]
 @app.route("/")
 def getMaterias():
-    materias = materiaModel.get()
+    order_by = request.args.get("order_by")
+
+    if order_by:
+        if order_by == "materia":
+            materias = materiaModel.get(order_by="materia")
+        elif order_by == "tipo":
+            materias = materiaModel.get(order_by="tipo")
+    else:
+        materias = materiaModel.get()
 
     return jsonify(materias)
 
@@ -52,3 +60,6 @@ def deleteMateria(materia):
     materiaModel.delete(materia)
 
     return jsonify({"status": "OK"})
+
+if __name__ == "__main__":
+    app.run(debug=True)

@@ -41,25 +41,34 @@ class Materia:
         self.cur.execute(
             f"""
                 INSERT
-                INTO materias
-                (materia, tipo)
+                INTO    materias
+                        (materia, tipo)
                 VALUES
-                ('{materia}', '{tipo}')
+                        ('{materia}', '{tipo}')
             """
         )
 
         self.conn.commit()
-    def get(self) -> dict:
+    def get(self, order_by: str = "") -> dict:
         """
             Obtêm todas as matérias cadastradas no banco de dados e as retorna como uma lista de tuplas, onde cada tupla é uma linha do banco.
         """
 
-        self.cur.execute(
-            f"""
-                SELECT *
-                FROM materias
-            """
-        )
+        if not order_by == "":
+            self.cur.execute(
+                f"""
+                    SELECT      *
+                    FROM        materias
+                    ORDER BY    {order_by}
+                """
+            )
+        else:
+            self.cur.execute(
+                f"""
+                    SELECT  *
+                    FROM    materias
+                """
+            )
 
         rows = self.cur.fetchall()
         table = []
@@ -86,10 +95,11 @@ class Materia:
 
         self.cur.execute(
             f"""
-                UPDATE materias SET
-                materia = '{newMateria}',
-                tipo = '{newTipo}'
-                WHERE materia = '{materiaToUpdate}'
+                UPDATE  materias
+                SET
+                        materia = '{newMateria}',
+                        tipo    = '{newTipo}'
+                WHERE   materia = '{materiaToUpdate}'
             """
         )
 
@@ -105,8 +115,8 @@ class Materia:
         self.cur.execute(
             f"""
                 DELETE
-                FROM materias
-                WHERE materia = '{materia}'
+                FROM    materias
+                WHERE   materia = '{materia}'
             """
         )
 
