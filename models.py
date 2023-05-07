@@ -49,7 +49,7 @@ class Materia:
         )
 
         self.conn.commit()
-    def get(self, order_by: str = "") -> dict:
+    def get(self, order_by: str = "", order: str = "ASC") -> dict:
         """
             Obtêm todas as matérias cadastradas no banco de dados e as retorna como uma lista de tuplas, onde cada tupla é uma linha do banco.
         """
@@ -59,7 +59,7 @@ class Materia:
                 f"""
                     SELECT      *
                     FROM        materias
-                    ORDER BY    {order_by}
+                    ORDER BY    {order_by} {order}
                 """
             )
         else:

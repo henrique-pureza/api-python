@@ -17,8 +17,12 @@ def getMaterias():
     if order_by:
         if order_by == "materia":
             materias = materiaModel.get(order_by="materia")
+        elif order_by == "materia_desc":
+            materias = materiaModel.get(order_by="materia", order="DESC")
         elif order_by == "tipo":
             materias = materiaModel.get(order_by="tipo")
+        elif order_by == "tipo_desc":
+            materias = materiaModel.get(order_by="tipo", order="DESC")
     else:
         materias = materiaModel.get()
 
